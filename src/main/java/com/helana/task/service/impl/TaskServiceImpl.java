@@ -5,9 +5,11 @@ import com.helana.task.domain.entity.Task;
 import com.helana.task.domain.entity.TaskStatus;
 import com.helana.task.repository.TaskRepository;
 import com.helana.task.service.TaskService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.List;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -35,5 +37,10 @@ public class TaskServiceImpl implements TaskService {
        );
 
        return taskRepository.save(task); //save method return a task
+    }
+
+    @Override
+    public List<Task> listTasks() {
+        return taskRepository.findAll(Sort.by(Sort.Direction.DESC, "created"));
     }
 }
